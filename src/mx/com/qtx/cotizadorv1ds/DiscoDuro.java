@@ -1,0 +1,33 @@
+package mx.com.qtx.cotizadorv1ds;
+
+import java.math.BigDecimal;
+
+public class DiscoDuro extends Componente {
+	
+	private String capacidadAlm;
+
+	public DiscoDuro(String id, String descripcion, String marca, String modelo, BigDecimal costo,
+			BigDecimal precioBase, String capacidadAlm) {
+		super(id, descripcion, marca, modelo, costo, precioBase);
+		this.capacidadAlm = capacidadAlm;
+		if(capacidadAlm == null) {
+			throw new IllegalArgumentException("Falta atributo capacidadAlm en un Disco Duro");
+		} 
+	}
+
+	public String getCapacidadAlm() {
+		return capacidadAlm;
+	}
+
+	public void setCapacidadAlm(String capacidadAlm) {
+		this.capacidadAlm = capacidadAlm;
+	}
+	
+	@Override
+	public void mostrarCaracteristicas() {
+        super.mostrarCaracteristicas();
+		System.out.println("Capacidad Almacenamiento: " + this.capacidadAlm);
+        System.out.println("Utilidad: " + this.calcularUtilidad());
+    }
+
+}
