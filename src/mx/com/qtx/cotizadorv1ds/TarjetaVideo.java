@@ -13,21 +13,6 @@ public class TarjetaVideo extends Componente {
 		}
 	}
 	
-	private BigDecimal calcularPrecioPromocion3x2(int cantidad, Componente componente) {
-		//System.out.println("Aplicando promoción de 3x2");
-		// Obtener el precio base del componente
-    	BigDecimal precioBase = componente.getPrecioBase();
-    	
-    	// Calcular grupos completos de 3 unidades y unidades restantes
-    	int gruposCompletos = cantidad / 3;
-    	int unidadesRestantes = cantidad % 3;
-    	
-    	// Calcular total: (2* grupos) + restantes
-    	BigDecimal total = precioBase.multiply(BigDecimal.valueOf(gruposCompletos * 2L + unidadesRestantes));
-    	
-    	return total;
-    }
-
 	public String getMemoria() {
 		return memoria;
 	}
@@ -38,7 +23,7 @@ public class TarjetaVideo extends Componente {
 	
 	@Override
 	public BigDecimal cotizar(int cantidad) {
-		return this.calcularPrecioPromocion3x2(cantidad, this);
+		return PromocionUtil.calcularPrecioPromocion3X2(cantidad, this.precioBase);
 	}
 
 	@Override
@@ -47,7 +32,5 @@ public class TarjetaVideo extends Componente {
         System.out.println("Memoria: " + this.memoria);
         System.out.println("Utilidad: " + this.calcularUtilidad());
     }
-	
-	
 	
 }

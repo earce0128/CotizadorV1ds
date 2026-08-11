@@ -1,20 +1,23 @@
 package mx.com.qtx.cotizadorv1ds;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class CotizadorTest {
     
 	public static void main(String[] args) {
-        testCreacionComponente();
+		testCreacionComponente();
         testComponenteDiscoDuro();
         testComponenteDiscoDuroSinCamAlm();
         testComponenteTarjetaVideo();
         testComponentetestComponenteTarjetaVideoSinMemoria();
         testComponenteMonitor();
         testCreacionPC();
-		testCreacionPC_ConErrores();
+        testCreacionPCConListaSubcomponentes();
+	    testCreacionPC_ConErrores();
+        testCreacionPC_ConErroresConListaSubcomponentes();
         testAgregarComponentes();
         testEliminarComponentes();
-		testEmitirCotizacion();
+        testEmitirCotizacion();
     }
 
 	public static void testCreacionComponente() {
@@ -142,6 +145,42 @@ public class CotizadorTest {
 		
 	}
 	
+	private static void testCreacionPCConListaSubcomponentes() {
+		// Creando comoponentes de una Pc
+		Componente disco1 = new DiscoDuro("D001",
+    									   "Disco Seagate",
+    									   "Tech XYZ",
+    									   "X200",
+    									   new BigDecimal("1880.00"),
+    									   new BigDecimal("2000.00"),
+    									   "1TB");
+		Componente monitor = new Monitor("M001",
+    									 "Monitor 17 pulgadas",
+    									 "Sony",
+    									 "Z9000",
+    									 new BigDecimal("3200.00"),
+    									 new BigDecimal("6000.00"));
+		Componente tarjeta = new TarjetaVideo("TV001",
+    								   		  "Tarjeta XYZ",
+    								   		  "TechBrand",
+    								   		  "X200",
+    								   		  BigDecimal.valueOf(150.00),
+    								   		  BigDecimal.valueOf(200.00),
+    								   		  "16GB");
+		try {
+			Componente miPc = new Pc("PC001", "Laptop 1500 s300", "Dell", "Terminator", List.of(tarjeta,disco1,monitor)); 
+			miPc.mostrarCaracteristicas();
+			
+			// Calculando Cotizador
+	    	int cantidad = 1;
+	    	System.out.println("\nCotizador PC para " + cantidad + " elementos es: $" + miPc.cotizar(cantidad).floatValue());
+			
+		} catch(IllegalArgumentException iaex) {
+			System.out.println("Error: testCreacionPC " + iaex.getMessage());
+		}
+		
+	}
+	
 	private static void testCreacionPC_ConErrores() {
 		// Creando comoponentes de una Pc
 		Componente disco1 = new DiscoDuro("D001",
@@ -165,7 +204,38 @@ public class CotizadorTest {
     								   		  BigDecimal.valueOf(200.00),
     								   		  "16GB");
 		try {
-			Componente miPc = new Pc("PC001", "Laptop 1500 s300", "Dell", "Terminator", disco1, null, monitor, null); 
+			Componente miPc = new Pc("PC001", "Laptop 1500 s300", "Dell", "Terminator", disco1, null, monitor, tarjeta); 
+			miPc.mostrarCaracteristicas();
+		} catch(IllegalArgumentException iaex) {
+			System.out.println("testCreacionPC_ConErrores funciona correctamente " + iaex.getMessage());
+		}
+	}
+	
+	private static void testCreacionPC_ConErroresConListaSubcomponentes() {
+		// Creando comoponentes de una Pc
+		Componente disco1 = new DiscoDuro("D001",
+    									   "Disco Seagate",
+    									   "Tech XYZ",
+    									   "X200",
+    									   new BigDecimal("1880.00"),
+    									   new BigDecimal("2000.00"),
+    									   "1TB");
+		Componente monitor = new Monitor("M001",
+    									 "Monitor 17 pulgadas",
+    									 "Sony",
+    									 "Z9000",
+    									 new BigDecimal("3200.00"),
+    									 new BigDecimal("6000.00"));
+		Componente tarjeta = new TarjetaVideo("TV001",
+    								   		  "Tarjeta XYZ",
+    								   		  "TechBrand",
+    								   		  "X200",
+    								   		  BigDecimal.valueOf(150.00),
+    								   		  BigDecimal.valueOf(200.00),
+    								   		  "16GB");
+		Componente c = new Componente("COMP-01", "Componente no permitido", "Marca no permitida", "Modelo", new BigDecimal(0),	new BigDecimal(0));
+		try {
+			Componente miPc = new Pc("PC001", "Laptop 1500 s300", "Dell", "Terminator", List.of(monitor,disco1,tarjeta,c)); 
 			miPc.mostrarCaracteristicas();
 		} catch(IllegalArgumentException iaex) {
 			System.out.println("testCreacionPC_ConErrores funciona correctamente " + iaex.getMessage());
@@ -286,14 +356,18 @@ public class CotizadorTest {
 			   "16GB");
 		Componente miPc = new Pc("PC0001", "Laptop 15000 s300", "Dell", "Terminator", 
 				discoPc, null, monitorPc, tarjetaPc);
+		
+		Componente miPc2 = new Pc("PC0002", "Laptop 800 s300", "Dell", "Terminator", List.of(monitorPc,discoPc,tarjetaPc));
 
 		System.out.println("=== Agregar componentes ===");
 		cotizador.agregarComponente(10, disco);
 		cotizador.agregarComponente(5, tarjeta);
 		cotizador.agregarComponente(10, monitor);
 		cotizador.agregarComponente(1, miPc);
+		cotizador.agregarComponente(2, miPc2);
 		
-		// Prueba: Emitir cotización
-		cotizador.emitirCotizacion(); // Mostrar cotización actual
+		// Prueba: Generar cotización
+		Cotizacion cot = cotizador.generarCotizacion(); // Mostrar cotización actual
+		cot.emitirComoReporte();
 	}
 }

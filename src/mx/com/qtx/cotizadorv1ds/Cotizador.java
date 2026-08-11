@@ -8,6 +8,7 @@ public class Cotizador {
 	private List<Integer> cantidades = new ArrayList<>();
     private List<Componente> componentes = new ArrayList<>();
     
+    /*
     private void desplegarLineaCotizacion(Componente componente, int cantidad, BigDecimal importeCotizador) {
     	System.out.println(String.format("%3d", cantidad) + " "
     			+ String.format("%-20s", componente.getDescripcion())
@@ -15,6 +16,7 @@ public class Cotizador {
     			+ " con precio base de $" + String.format("%8.2f", componente.getPrecioBase())
     			+ " cuesta(n) " + String.format("%8.2f", importeCotizador));
 	}
+	*/
     
     public void agregarComponente(int cantidad, Componente componente) {
         this.cantidades.add(cantidad);
@@ -32,21 +34,26 @@ public class Cotizador {
         this.componentes.remove(i);
     }
 
-    public void emitirCotizacion() {
-        System.out.println("=== Cotización ===");
+    public Cotizacion generarCotizacion() {
+        //System.out.println("=== Cotización ===");
         BigDecimal total = new BigDecimal(0);
+        
+        // Se invoca a la cotización
+        Cotizacion cotizacion = new Cotizacion();
         
         for (int i=0; i<this.cantidades.size(); i++) {
 			Componente compI = this.componentes.get(i);
 			int cantidadI = this.cantidades.get(i);
-			BigDecimal importeCotizadorI = new BigDecimal(0);
+			BigDecimal importeCotizadoI = new BigDecimal(0);
 			
-			importeCotizadorI = compI.cotizar(cantidadI);
+			importeCotizadoI = compI.cotizar(cantidadI);
 			
-			desplegarLineaCotizacion(compI, cantidadI, importeCotizadorI);
-			total = total.add(importeCotizadorI);
+			cotizacion.agregarDetalle((i+1), compI.getId(), compI.getDescripcion(), cantidadI, compI.getPrecioBase(), importeCotizadoI);
+			total = total.add(importeCotizadoI);
 		}
-        System.out.println("Total: $" + String.format("%8.2f",total));
+        cotizacion.setTotal(total);
+        //System.out.println("Total: $" + String.format("%8.2f",total));
+        return cotizacion;
     }
 
 	public void listarComponentes() {
