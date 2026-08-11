@@ -5,7 +5,7 @@ import java.util.List;
 public class CotizadorTest {
     
 	public static void main(String[] args) {
-		testCreacionComponente();
+		//testCreacionComponente();
         testComponenteDiscoDuro();
         testComponenteDiscoDuroSinCamAlm();
         testComponenteTarjetaVideo();
@@ -20,6 +20,7 @@ public class CotizadorTest {
         testEmitirCotizacion();
     }
 
+	/*
 	public static void testCreacionComponente() {
 		Componente c1 = new Componente("C001",
     			"Tarjeta XYZ",
@@ -29,6 +30,7 @@ public class CotizadorTest {
     			BigDecimal.valueOf(200.00));
     	c1.mostrarCaracteristicas();
     }
+    */
 	
 	public static void testComponenteDiscoDuro() {
 		// Creando un disco duro
@@ -233,7 +235,7 @@ public class CotizadorTest {
     								   		  BigDecimal.valueOf(150.00),
     								   		  BigDecimal.valueOf(200.00),
     								   		  "16GB");
-		Componente c = new Componente("COMP-01", "Componente no permitido", "Marca no permitida", "Modelo", new BigDecimal(0),	new BigDecimal(0));
+		Componente c = new Pc("COMP-01", "Componente no permitido", "Marca no permitida", "Modelo", List.of(monitor,disco1,tarjeta));
 		try {
 			Componente miPc = new Pc("PC001", "Laptop 1500 s300", "Dell", "Terminator", List.of(monitor,disco1,tarjeta,c)); 
 			miPc.mostrarCaracteristicas();

@@ -1,7 +1,7 @@
 package mx.com.qtx.cotizadorv1ds;
 import java.math.BigDecimal;
 
-public class Componente {
+abstract public class Componente {
     protected String id;
     protected String descripcion;
     protected String marca;
@@ -52,10 +52,14 @@ public class Componente {
         System.out.println("Modelo: " + this.modelo);
         System.out.println("Costo: $" + this.costo);
         System.out.println("Precio Base: $" + this.precioBase);
-        System.out.println("Tipo: " + this.getClass().getSimpleName());
+        System.out.println("Categoria: " + this.getCategoria());
+        System.out.println("Utilidad: " + this.calcularUtilidad());
+        
     }
 
     public BigDecimal calcularUtilidad() {
         return precioBase.subtract(costo);
     }
+    
+    abstract public String getCategoria();
 }

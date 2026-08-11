@@ -48,7 +48,7 @@ public class Cotizador {
 			
 			importeCotizadoI = compI.cotizar(cantidadI);
 			
-			cotizacion.agregarDetalle((i+1), compI.getId(), compI.getDescripcion(), cantidadI, compI.getPrecioBase(), importeCotizadoI);
+			cotizacion.agregarDetalle((i+1), compI.getId(), compI.getDescripcion(), cantidadI, compI.getPrecioBase(), importeCotizadoI, compI.getCategoria());
 			total = total.add(importeCotizadoI);
 		}
         cotizacion.setTotal(total);

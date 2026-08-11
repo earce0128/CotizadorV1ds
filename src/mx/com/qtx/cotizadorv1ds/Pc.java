@@ -121,11 +121,15 @@ public class Pc extends Componente {
 	@Override
 	public void mostrarCaracteristicas() {
 		super.mostrarCaracteristicas();
-		System.out.println("Utilidad: " + this.calcularUtilidad());
 		// Mostrando los subcomponentes de una PC
 		System.out.println("\nComponentes anidados: ------------------------");
 		this.subcomponentes.stream()
         					.filter(compI -> compI != null)
         					.forEach(compI-> compI.mostrarCaracteristicas());
+	}
+
+	@Override
+	public String getCategoria() {
+		return "PC";
 	}
 }

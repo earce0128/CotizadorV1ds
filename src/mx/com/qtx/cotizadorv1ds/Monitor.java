@@ -19,10 +19,10 @@ public class Monitor extends Componente {
 	public BigDecimal cotizar(int cantidad) {
 		return PromocionUtil.calcularPrecioPromocionDsctoXcant(cantidad, this.precioBase, mapDsctos);
 	}
-	
+
 	@Override
-	public void mostrarCaracteristicas() {
-		super.mostrarCaracteristicas();
-		System.out.println("Utilidad: " + this.calcularUtilidad());
+	public String getCategoria() {
+		return "Monitor";
 	}
+	
 }

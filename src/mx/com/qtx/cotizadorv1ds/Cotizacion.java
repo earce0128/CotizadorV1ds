@@ -23,17 +23,11 @@ public class Cotizacion {
 		this.detalles = new TreeMap<>();
 	}
 	
-	/*
-	public void agregarDetalle(DetalleCotizacion detI) {
-		this.detalles.put(detI.getNumDetalle(), detI);
-	}
-	*/
-	
-	public void agregarDetalle(int numDetalle, String idComponente, String descripcion, int cantidad, BigDecimal precioBase, BigDecimal importeCotizado) {
-		DetalleCotizacion det = new DetalleCotizacion(numDetalle, idComponente, descripcion, cantidad,precioBase, importeCotizado);
+	public void agregarDetalle(int numDetalle, String idComponente, String descripcion, int cantidad, BigDecimal precioBase, BigDecimal importeCotizado,
+			String categoria) {
+		DetalleCotizacion det = new DetalleCotizacion(numDetalle, idComponente, descripcion, cantidad,precioBase, importeCotizado, categoria);
 		this.detalles.put(det.getNumDetalle(), det);
 	}
-	
 
 	public long getNum() {
 		return num;
@@ -69,6 +63,7 @@ public class Cotizacion {
 	
 	private void desplegarLineaCotizacion(DetalleCotizacion detI) {
 		System.out.println(String.format("%3d",detI.getCantidad()) + " " 
+							+ String.format("Categoría:%-20s", detI.getCategoria())
 							+ String.format("%-20s", detI.getDescripcion())
 							+ " con precio base de $" + String.format("%8.2f",detI.getPrecioBase())
 							+ " cuesta(n) " + String.format("%8.2f",detI.getImporteCotizado()));

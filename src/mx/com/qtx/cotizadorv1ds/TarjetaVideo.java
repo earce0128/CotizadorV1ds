@@ -30,7 +30,11 @@ public class TarjetaVideo extends Componente {
 	public void mostrarCaracteristicas() {
 		super.mostrarCaracteristicas();
         System.out.println("Memoria: " + this.memoria);
-        System.out.println("Utilidad: " + this.calcularUtilidad());
     }
+
+	@Override
+	public String getCategoria() {
+		return "Tarjeta de Video";
+	}
 	
 }
