@@ -1,7 +1,6 @@
-package mx.com.qtx.cotizadorv1ds;
+package mx.com.qtx.cotizadorv1ds.componentes;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Pc extends Componente {
@@ -12,7 +11,7 @@ public class Pc extends Componente {
 	private static final int MAX_CANT_TARJETASVIDEO = 1;
 	private List<Componente> subcomponentes;
 
-	public Pc(String id, String descripcion, String marca, String modelo, 
+	protected Pc(String id, String descripcion, String marca, String modelo, 
 			List<Componente> subcomponentes) {
 		super(id, descripcion, marca, modelo, new BigDecimal(0), new BigDecimal(0));
 		if(this.validarComponentesPc(subcomponentes)) {
@@ -20,31 +19,6 @@ public class Pc extends Componente {
 			this.setPrecioBase(this.calcularPrecioComponenteAgregado());
 			this.setCosto(this.calcularCostoComponenteAgregado());
 		}
-	}
-	
-	public Pc(String id, String descripcion, String marca, String modelo, 
-			Componente disco1, Componente disco2, Componente monitor, Componente tarjeta) {
-		super(id, descripcion, marca, modelo, new BigDecimal(0), new BigDecimal(0));
-		// Validaciones ...
-    	if(disco1 == null && disco2 == null) {
-    		throw new IllegalArgumentException("Una PC debe tener al menos un Disco Duro");
-    	}
-    	if(monitor == null) {
-    		throw new IllegalArgumentException("Una PC debe tener un Monitor");
-    	}
-    	if(tarjeta == null) {
-    		throw new IllegalArgumentException("Una PC debe tener una Tarjeta de Video");
-    	}
-    	
-    	//Crear agregado
-    	this.subcomponentes = new ArrayList<>();
-    	subcomponentes.add(disco1);
-    	subcomponentes.add(disco2);
-    	subcomponentes.add(monitor);
-    	subcomponentes.add(tarjeta);
-    	
-    	this.setPrecioBase(this.calcularPrecioComponenteAgregado());
-		this.setCosto(this.calcularCostoComponenteAgregado());
 	}
 	
 	private int obtenerCantComponentes(List<Componente> subcomponentes, String tipo) {

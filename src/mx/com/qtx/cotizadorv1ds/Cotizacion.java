@@ -58,7 +58,7 @@ public class Cotizacion {
 		for(Integer k:this.detalles.keySet()) {
 			this.desplegarLineaCotizacion(this.detalles.get(k));
 		}
-		System.out.printf("\n%72s","Total:$" + String.format("%8.2f",this.getTotal()));
+		System.out.printf("\n%102s","Total:$" + String.format("%8.2f",this.getTotal()));
 	}
 	
 	private void desplegarLineaCotizacion(DetalleCotizacion detI) {

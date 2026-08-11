@@ -4,6 +4,8 @@ import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
+import mx.com.qtx.cotizadorv1ds.componentes.Componente;
+
 public class CotizadorMap {
     private float porcPrecioAgregado = 20;
     private int cantMinDsctoA = 3;

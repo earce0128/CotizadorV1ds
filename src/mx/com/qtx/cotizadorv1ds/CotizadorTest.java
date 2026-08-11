@@ -2,6 +2,8 @@ package mx.com.qtx.cotizadorv1ds;
 import java.math.BigDecimal;
 import java.util.List;
 
+import mx.com.qtx.cotizadorv1ds.componentes.Componente;
+
 public class CotizadorTest {
     
 	public static void main(String[] args) {
@@ -20,6 +22,7 @@ public class CotizadorTest {
         testEmitirCotizacion();
     }
 
+	// Al ser una clase abstracta, ya no puede ser instanciada.
 	/*
 	public static void testCreacionComponente() {
 		Componente c1 = new Componente("C001",
@@ -34,7 +37,7 @@ public class CotizadorTest {
 	
 	public static void testComponenteDiscoDuro() {
 		// Creando un disco duro
-		Componente c1 = new DiscoDuro("D001",
+		Componente c1 = Componente.crearDiscoDuro("D001",
     			"Disco Seagate",
     			"Tech XYZ",
     			"X200",
@@ -51,7 +54,7 @@ public class CotizadorTest {
 	public static void testComponenteDiscoDuroSinCamAlm() {
 		try {
 			// Creando un disco duro
-			Componente c1 = new DiscoDuro("D001",
+			Componente c1 = Componente.crearDiscoDuro("D001",
 	    			"Disco Seagate",
 	    			"Tech XYZ",
 	    			"X200",
@@ -66,7 +69,7 @@ public class CotizadorTest {
 	
 	public static void testComponenteTarjetaVideo() {
 		// Creando una tarjeta de video
-		Componente c1 = new TarjetaVideo("TV001",
+		Componente c1 = Componente.crearTarjetaVideo("TV001",
 				   "Tarjeta XYZ",
 				   "TechBrand",
 				   "X200",
@@ -83,7 +86,7 @@ public class CotizadorTest {
 	private static void testComponentetestComponenteTarjetaVideoSinMemoria() {
 		try {
 			// Creando una tarjeta de video
-			Componente c1 = new TarjetaVideo("TV001",
+			Componente c1 = Componente.crearTarjetaVideo("TV001",
 					   "Tarjeta XYZ",
 					   "TechBrand",
 					   "X200",
@@ -98,7 +101,7 @@ public class CotizadorTest {
 	
 	public static void testComponenteMonitor() {
 		// Creando un monitor
-		Componente c1 = new Monitor("M001",
+		Componente c1 = Componente.crearMonitor("M001",
 				"Monitor 17 pulgadas",
 				"Sony",
 				"Z9000",
@@ -113,20 +116,20 @@ public class CotizadorTest {
 	
 	private static void testCreacionPC() {
 		// Creando comoponentes de una Pc
-		Componente disco1 = new DiscoDuro("D001",
+		Componente disco1 = Componente.crearDiscoDuro("D001",
     									   "Disco Seagate",
     									   "Tech XYZ",
     									   "X200",
     									   new BigDecimal("1880.00"),
     									   new BigDecimal("2000.00"),
     									   "1TB");
-		Componente monitor = new Monitor("M001",
+		Componente monitor = Componente.crearMonitor("M001",
     									 "Monitor 17 pulgadas",
     									 "Sony",
     									 "Z9000",
     									 new BigDecimal("3200.00"),
     									 new BigDecimal("6000.00"));
-		Componente tarjeta = new TarjetaVideo("TV001",
+		Componente tarjeta = Componente.crearTarjetaVideo("TV001",
     								   		  "Tarjeta XYZ",
     								   		  "TechBrand",
     								   		  "X200",
@@ -134,7 +137,7 @@ public class CotizadorTest {
     								   		  BigDecimal.valueOf(200.00),
     								   		  "16GB");
 		try {
-			Componente miPc = new Pc("PC001", "Laptop 1500 s300", "Dell", "Terminator", disco1, null, monitor, tarjeta); 
+			Componente miPc = Componente.crearPc("PC001", "Laptop 1500 s300", "Dell", "Terminator", List.of(disco1,monitor,tarjeta)); 
 			miPc.mostrarCaracteristicas();
 			
 			// Calculando Cotizador
@@ -149,20 +152,20 @@ public class CotizadorTest {
 	
 	private static void testCreacionPCConListaSubcomponentes() {
 		// Creando comoponentes de una Pc
-		Componente disco1 = new DiscoDuro("D001",
+		Componente disco1 = Componente.crearDiscoDuro("D001",
     									   "Disco Seagate",
     									   "Tech XYZ",
     									   "X200",
     									   new BigDecimal("1880.00"),
     									   new BigDecimal("2000.00"),
     									   "1TB");
-		Componente monitor = new Monitor("M001",
+		Componente monitor = Componente.crearMonitor("M001",
     									 "Monitor 17 pulgadas",
     									 "Sony",
     									 "Z9000",
     									 new BigDecimal("3200.00"),
     									 new BigDecimal("6000.00"));
-		Componente tarjeta = new TarjetaVideo("TV001",
+		Componente tarjeta = Componente.crearTarjetaVideo("TV001",
     								   		  "Tarjeta XYZ",
     								   		  "TechBrand",
     								   		  "X200",
@@ -170,7 +173,7 @@ public class CotizadorTest {
     								   		  BigDecimal.valueOf(200.00),
     								   		  "16GB");
 		try {
-			Componente miPc = new Pc("PC001", "Laptop 1500 s300", "Dell", "Terminator", List.of(tarjeta,disco1,monitor)); 
+			Componente miPc = Componente.crearPc("PC001", "Laptop 1500 s300", "Dell", "Terminator", List.of(tarjeta,disco1,monitor)); 
 			miPc.mostrarCaracteristicas();
 			
 			// Calculando Cotizador
@@ -185,20 +188,20 @@ public class CotizadorTest {
 	
 	private static void testCreacionPC_ConErrores() {
 		// Creando comoponentes de una Pc
-		Componente disco1 = new DiscoDuro("D001",
+		Componente disco1 = Componente.crearDiscoDuro("D001",
     									   "Disco Seagate",
     									   "Tech XYZ",
     									   "X200",
     									   new BigDecimal("1880.00"),
     									   new BigDecimal("2000.00"),
     									   "1TB");
-		Componente monitor = new Monitor("M001",
+		Componente monitor = Componente.crearMonitor("M001",
     									 "Monitor 17 pulgadas",
     									 "Sony",
     									 "Z9000",
     									 new BigDecimal("3200.00"),
     									 new BigDecimal("6000.00"));
-		Componente tarjeta = new TarjetaVideo("TV001",
+		Componente tarjeta = Componente.crearTarjetaVideo("TV001",
     								   		  "Tarjeta XYZ",
     								   		  "TechBrand",
     								   		  "X200",
@@ -206,7 +209,7 @@ public class CotizadorTest {
     								   		  BigDecimal.valueOf(200.00),
     								   		  "16GB");
 		try {
-			Componente miPc = new Pc("PC001", "Laptop 1500 s300", "Dell", "Terminator", disco1, null, monitor, tarjeta); 
+			Componente miPc = Componente.crearPc("PC001", "Laptop 1500 s300", "Dell", "Terminator", List.of(disco1, monitor, tarjeta, tarjeta)); 
 			miPc.mostrarCaracteristicas();
 		} catch(IllegalArgumentException iaex) {
 			System.out.println("testCreacionPC_ConErrores funciona correctamente " + iaex.getMessage());
@@ -215,29 +218,29 @@ public class CotizadorTest {
 	
 	private static void testCreacionPC_ConErroresConListaSubcomponentes() {
 		// Creando comoponentes de una Pc
-		Componente disco1 = new DiscoDuro("D001",
+		Componente disco1 = Componente.crearDiscoDuro("D001",
     									   "Disco Seagate",
     									   "Tech XYZ",
     									   "X200",
     									   new BigDecimal("1880.00"),
     									   new BigDecimal("2000.00"),
     									   "1TB");
-		Componente monitor = new Monitor("M001",
+		Componente monitor = Componente.crearMonitor("M001",
     									 "Monitor 17 pulgadas",
     									 "Sony",
     									 "Z9000",
     									 new BigDecimal("3200.00"),
     									 new BigDecimal("6000.00"));
-		Componente tarjeta = new TarjetaVideo("TV001",
+		Componente tarjeta = Componente.crearTarjetaVideo("TV001",
     								   		  "Tarjeta XYZ",
     								   		  "TechBrand",
     								   		  "X200",
     								   		  BigDecimal.valueOf(150.00),
     								   		  BigDecimal.valueOf(200.00),
     								   		  "16GB");
-		Componente c = new Pc("COMP-01", "Componente no permitido", "Marca no permitida", "Modelo", List.of(monitor,disco1,tarjeta));
+		Componente c = Componente.crearPc("COMP-01", "Componente no permitido", "Marca no permitida", "Modelo", List.of(monitor,disco1,tarjeta));
 		try {
-			Componente miPc = new Pc("PC001", "Laptop 1500 s300", "Dell", "Terminator", List.of(monitor,disco1,tarjeta,c)); 
+			Componente miPc = Componente.crearPc("PC001", "Laptop 1500 s300", "Dell", "Terminator", List.of(monitor,disco1,tarjeta,c)); 
 			miPc.mostrarCaracteristicas();
 		} catch(IllegalArgumentException iaex) {
 			System.out.println("testCreacionPC_ConErrores funciona correctamente " + iaex.getMessage());
@@ -246,20 +249,20 @@ public class CotizadorTest {
 	
 	private static void testAgregarComponentes() {
 		Cotizador cotizador = new Cotizador();
-		Componente disco1 = new DiscoDuro("D001",
+		Componente disco1 = Componente.crearDiscoDuro("D001",
 				   						"Disco Seagate",
 				   						"Tech XYZ",
 				   						"X200",
 				   						new BigDecimal("1880.00"),
 				   						new BigDecimal("2000.00"),
 				   					    "1TB");
-		Componente monitor = new Monitor("M001",
+		Componente monitor = Componente.crearMonitor("M001",
 										"Monitor 17 pulgadas",
 										"Sony",
 										"Z9000",
 										new BigDecimal("3200.00"),
 										new BigDecimal("6000.00"));
-		Componente tarjeta = new TarjetaVideo("TV001",
+		Componente tarjeta = Componente.crearTarjetaVideo("TV001",
 											"Tarjeta XYZ",
 											"TechBrand",
 											"X200",
@@ -278,20 +281,20 @@ public class CotizadorTest {
 		Cotizador cotizador = new Cotizador();
 		
 		// Crear algunos componentes
-		Componente disco1 = new DiscoDuro("D001",
+		Componente disco1 = Componente.crearDiscoDuro("D001",
 				   						"Disco Seagate",
 				   						"Tech XYZ",
 				   						"X200",
 				   						new BigDecimal("1880.00"),
 				   						new BigDecimal("2000.00"),
 				   						"1TB");
-		Componente monitor = new Monitor("M001",
+		Componente monitor = Componente.crearMonitor("M001",
 										"Monitor 17 pulgadas",
 										"Sony",
 										"Z9000",
 										new BigDecimal("3200.00"),
 										new BigDecimal("6000.00"));
-		Componente tarjeta = new TarjetaVideo("TV001",
+		Componente tarjeta = Componente.crearTarjetaVideo("TV001",
 											"Tarjeta XYZ",
 											"TechBrand",
 											"X200",
@@ -316,50 +319,49 @@ public class CotizadorTest {
 		Cotizador cotizador = new Cotizador();
 		
 		// Crear algunos componentes
-		Componente disco = new DiscoDuro("D001",
+		Componente disco = Componente.crearDiscoDuro("D001",
 				   "Disco Seagate",
 				   "Tech XYZ",
 				   "X200",
 				   new BigDecimal("150.00"),
 				   new BigDecimal("200.00"),
 				   "1TB");
-		Componente tarjeta = new TarjetaVideo("TV001",
+		Componente tarjeta = Componente.crearTarjetaVideo("TV001",
 				   "Tarjeta ABC",
 				   "GraphicBrand",
 				   "G100",
 				   BigDecimal.valueOf(300.00),
 				   BigDecimal.valueOf(400.00),
 				   "8GB");
-		Componente monitor = new Monitor("M00T",
+		Componente monitor = Componente.crearMonitor("M00T",
 					"Monitor 17 pulgadas",
 					"Sony",
 					"Z9000",
 					new BigDecimal("1000.00"),
 					new BigDecimal("2000.00"));
-		Componente discoPc = new DiscoDuro("D00Y",
+		Componente discoPc = Componente.crearDiscoDuro("D00Y",
 				   "Disco Seagate",
 				   "Tech XYZ",
 				   "X200",
 				   new BigDecimal("1880.00"),
 				   new BigDecimal("2000.00"),
 				   "1TB");
-		Componente monitorPc = new Monitor("M00X",
+		Componente monitorPc = Componente.crearMonitor("M00X",
 				"Monitor 17 pulgadas",
 				"Sony",
 				"Z9000",
 				new BigDecimal("3200.00"),
 				new BigDecimal("3000.00"));
-		Componente tarjetaPc = new TarjetaVideo("C005",
+		Componente tarjetaPc = Componente.crearTarjetaVideo("C005",
 			   "Tarjeta XYZ",
 			   "TechBrand",
 			   "X200",
 			   BigDecimal.valueOf(150.00),
 			   BigDecimal.valueOf(1000.00),
 			   "16GB");
-		Componente miPc = new Pc("PC0001", "Laptop 15000 s300", "Dell", "Terminator", 
-				discoPc, null, monitorPc, tarjetaPc);
+		Componente miPc = Componente.crearPc("PC0001", "Laptop 15000 s300", "Dell", "Terminator", List.of(discoPc, monitorPc, tarjetaPc));
 		
-		Componente miPc2 = new Pc("PC0002", "Laptop 800 s300", "Dell", "Terminator", List.of(monitorPc,discoPc,tarjetaPc));
+		Componente miPc2 = Componente.crearPc("PC0002", "Laptop 800 s300", "Dell", "Terminator", List.of(monitorPc,discoPc,tarjetaPc));
 
 		System.out.println("=== Agregar componentes ===");
 		cotizador.agregarComponente(10, disco);
