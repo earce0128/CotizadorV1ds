@@ -1,29 +1,50 @@
 package mx.com.qtx.cotizadorv1ds.componentes;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 abstract public class Componente {
-    protected String id;
+    
+	protected String id;
     protected String descripcion;
     protected String marca;
     protected String modelo;
     protected BigDecimal costo;
     protected BigDecimal precioBase;
+    protected List<String> msgErrValidacion;
     
     public Componente(String id, String descripcion, String marca, String modelo, BigDecimal costo,	BigDecimal precioBase) {
 		super();
-		this.id = id;
-		this.descripcion = descripcion;
-		this.marca = marca;
-		this.modelo = modelo;
-		this.costo = costo;
-		this.precioBase = precioBase;
+		this.msgErrValidacion = new ArrayList<>();
+		this.validarAtributosComponente(id, descripcion, marca, modelo, costo, precioBase);
+		if(this.msgErrValidacion.size() == 0) {
+			this.id = id;
+			this.descripcion = descripcion;
+			this.marca = marca;
+			this.modelo = modelo;
+			this.costo = costo;
+			this.precioBase = precioBase;
+		}
 	}
     
     private BigDecimal calcularPrecioDefault(int cantidad, Componente componente) {
-    	//System.out.println("Precio sin promoción");
     	return componente.getPrecioBase().multiply(BigDecimal.valueOf(cantidad));
     }
+    
+    protected void validarAtributosComponente(String id, String descripcion, String marca, String modelo, BigDecimal costo, BigDecimal precioBase) {
+    	if(id == null || id.trim().equals(""))
+    		this.msgErrValidacion.add("El id es obligatorio");
+    	if(descripcion == null || descripcion.trim().equals(""))
+    		this.msgErrValidacion.add("La descripcion es obligatoria");
+    	if(marca == null || marca.trim().equals(""))
+    		this.msgErrValidacion.add("La marca es obligatoria");
+    	if(modelo == null || modelo.trim().equals(""))
+    		this.msgErrValidacion.add("El modelo es obligatorio");
+    	if(costo == null)
+    		this.msgErrValidacion.add("El costo es obligatorio");
+    	if(precioBase == null)
+    		this.msgErrValidacion.add("El precioBase es obligatorio");
+    };
     
 	// Setters
     public void setId(String id) { this.id = id; }
@@ -55,7 +76,6 @@ abstract public class Componente {
         System.out.println("Precio Base: $" + this.precioBase);
         System.out.println("Categoria: " + this.getCategoria());
         System.out.println("Utilidad: " + this.calcularUtilidad());
-        
     }
 
     public BigDecimal calcularUtilidad() {
@@ -80,7 +100,32 @@ abstract public class Componente {
     }
     
     public static Componente crearPc(String id, String descripcion, String marca, String modelo, List<Componente> subcomponentes) {
-    	return new Pc(id,descripcion,marca,modelo,subcomponentes);
+    	if(subcomponentes == null) throw new IllegalArgumentException("Pc no válida: \n Debe tener subcomponentes");
+    	
+    	List<String> lstCompNoValidos = PcBuilder.validarSubcomponentesPc(subcomponentes);
+    	
+    	if(lstCompNoValidos.size() > 0) throw new IllegalArgumentException("Pc no válida: \n " + lstCompNoValidos);
+    	
+    	List<ComponenteSimple> lstDispositivos = subcomponentes.stream()
+					.filter(compI -> (compI instanceof ComponenteSimple))
+					.map(compI -> (ComponenteSimple)compI)
+					.toList();
+
+    	return new Pc(id,descripcion,marca,modelo,lstDispositivos);
     }
+    
+    public List<String> getMsgErrValidacion(){
+    	return this.msgErrValidacion; 
+    }
+    
+    public static PcBuilder getPcBuilder() {
+		return new PcBuilder();
+	}
+    
+    @Override
+	public String toString() {
+		return "Componente [id=" + id + ", categoria=" + getCategoria() + ", descripcion=" + descripcion + ", marca=" + marca + ", modelo=" + modelo
+				+ ", costo=" + costo + ", precioBase=" + precioBase + "]";
+	}
     
 }

@@ -6,59 +6,62 @@ import java.util.List;
 public class Pc extends Componente {
 	
 	private static final float DSCTO_PRECIO_AGREGADO = 20.0f;
-	private static final int MAX_CANT_DISCOSDUSROS = 2;
-	private static final int MAX_CANT_MONITORES = 1;
-	private static final int MAX_CANT_TARJETASVIDEO = 1;
-	private List<Componente> subcomponentes;
-
-	protected Pc(String id, String descripcion, String marca, String modelo, 
-			List<Componente> subcomponentes) {
+	
+	private List<ComponenteSimple> subcomponentes;
+	
+	protected Pc(String id, String descripcion, String marca, String modelo, List<ComponenteSimple> subcomponentes) {
 		super(id, descripcion, marca, modelo, new BigDecimal(0), new BigDecimal(0));
-		if(this.validarComponentesPc(subcomponentes)) {
-			this.subcomponentes = subcomponentes;
-			this.setPrecioBase(this.calcularPrecioComponenteAgregado());
-			this.setCosto(this.calcularCostoComponenteAgregado());
-		}
+		if(this.esUnaPcValida(subcomponentes) == false)
+			throw new IllegalArgumentException("Pc no válida: \n" + this.msgErrValidacion);
+		this.subcomponentes = subcomponentes;
+		this.setPrecioBase(this.calcularPrecioComponenteAgregado());
+		this.setCosto(this.calcularCostoComponenteAgregado());
+
 	}
 	
-	private int obtenerCantComponentes(List<Componente> subcomponentes, String tipo) {
+	private boolean esUnaPcValida(List<ComponenteSimple> subcomponentes) {
+		validarSubcomponentesPc(subcomponentes);
+		if(this.msgErrValidacion.size() > 0) return false;
+		return true;
+	}
+	
+	private static int obtenerCantComponentes(List<ComponenteSimple> subcomponentes, String tipo) {
 		return (int)subcomponentes.stream()
 				.filter(compI -> compI.getClass().getSimpleName().equalsIgnoreCase(tipo))
 				.count();
 	}
 	
-	private int obtenerCantComponentesNoPermitidos(List<Componente> subcomponentes) {
+	private static int obtenerCantComponentesNoPermitidos(List<ComponenteSimple> subcomponentes) {
 		return (int)subcomponentes.stream().filter(compI -> !compI.getClass().getSimpleName().equalsIgnoreCase("Monitor"))  
 				   						   .filter(compI -> !compI.getClass().getSimpleName().equalsIgnoreCase("TarjetaVideo"))
 				   						   .filter(compI -> !compI.getClass().getSimpleName().equalsIgnoreCase("DiscoDuro"))
 				   						   .count();
 	}
 	
-	private boolean validarComponentesPc(List<Componente> subcomponentes) {
+	private boolean validarSubcomponentesPc(List<ComponenteSimple> subcomponentes) {
 
-		int cantDiscos = this.obtenerCantComponentes(subcomponentes, "DiscoDuro");
-		int cantTarjetasVideo = this.obtenerCantComponentes(subcomponentes, "TarjetaVideo");
-		int cantMonitores = this.obtenerCantComponentes(subcomponentes, "Monitor");
-		int cantCompNoPermitidos = this.obtenerCantComponentesNoPermitidos(subcomponentes);
+		int cantDiscos = obtenerCantComponentes(subcomponentes, "DiscoDuro");
+		int cantTarjetasVideo = obtenerCantComponentes(subcomponentes, "TarjetaVideo");
+		int cantMonitores = obtenerCantComponentes(subcomponentes, "Monitor");
+		int cantCompNoPermitidos = obtenerCantComponentesNoPermitidos(subcomponentes);
 		
+		/*
 		System.out.println("Discos encontrados: " + cantDiscos);
 		System.out.println("Tarjetas de Video encontradas: " + cantTarjetasVideo);
 		System.out.println("Monitores encontrados: " + cantMonitores);
 		System.out.println("Componentes no permitidos encontrados: " + cantCompNoPermitidos);
+		*/
 		
-		if(cantDiscos == 0 || cantDiscos > MAX_CANT_DISCOSDUSROS) {
-			throw new IllegalArgumentException("Una PC debe tener al menos un Disco Duro y no más de " + MAX_CANT_DISCOSDUSROS);
-		}
-		if(cantMonitores == 0 || cantMonitores > MAX_CANT_MONITORES) {
-			throw new IllegalArgumentException("Una PC debe tener un Monitor y no más de " + MAX_CANT_MONITORES);
-		}
-		if(cantTarjetasVideo == 0 || cantTarjetasVideo > MAX_CANT_TARJETASVIDEO) {
-			throw new IllegalArgumentException("Una PC debe tener una Tarjeta de Video y no más de " + MAX_CANT_TARJETASVIDEO);
-		}
-		if(cantCompNoPermitidos > 0) {
-			throw new IllegalArgumentException("Una PC solo debe tener Discos Duros, un Monitor y una Tarjeta de Video");
-		}
+		if(cantDiscos < PcBuilder.getMinDisco() || cantDiscos > PcBuilder.getMaxDiscos())
+			this.msgErrValidacion.add("Debe tener mínimo " + PcBuilder.getMinDisco() + " y máximo " + PcBuilder.getMaxDiscos() + " discos");
+		if(cantMonitores < PcBuilder.getMinMonitores() || cantMonitores > PcBuilder.getMaxMonitores())
+			this.msgErrValidacion.add("Debe tener mínimo " + PcBuilder.getMinMonitores() + " y máximo " +	PcBuilder.getMaxMonitores() + " monitores");
+		if(cantMonitores < PcBuilder.getMinTarjetas() || cantTarjetasVideo > PcBuilder.getMaxTarjetas())
+			this.msgErrValidacion.add("Debe tener mínimo " + PcBuilder.getMinTarjetas() + " y máximo " +	PcBuilder.getMaxTarjetas() + " tarjetas");
+		if(cantCompNoPermitidos > 0) 
+			this.msgErrValidacion.add("Una PC solo debe tener Discos Duros, un Monitor y una Tarjeta de Video");
 		
+		if(this.msgErrValidacion.size() > 0) return false;
 		return true;
 	}
 	
@@ -82,24 +85,36 @@ public class Pc extends Componente {
     	return costoPc;
     }
 
-	public List<Componente> getSubcomponentes() {
+	public List<ComponenteSimple> getSubcomponentes() {
 		return subcomponentes;
 	}
 
 	@Override
 	public BigDecimal cotizar(int cantidad) {
-		//return this.calcularPrecioComponenteAgregado(cantidad);
 		return PromocionUtil.calcularPrecioPromocionDscto(cantidad, this.precioBase, DSCTO_PRECIO_AGREGADO);
 	}
 
 	@Override
 	public void mostrarCaracteristicas() {
 		super.mostrarCaracteristicas();
+		
 		// Mostrando los subcomponentes de una PC
-		System.out.println("\nComponentes anidados: ------------------------");
+		System.out.println("\n==== Disco(s) ====");
 		this.subcomponentes.stream()
-        					.filter(compI -> compI != null)
-        					.forEach(compI-> compI.mostrarCaracteristicas());
+		                   .filter(scI->scI instanceof DiscoDuro)
+		                   .forEach(dscI-> { dscI.mostrarCaracteristicas(); 
+		                   		             System.out.println();
+		                   		             });
+		System.out.println("==== Monitor(es) ====");
+		this.subcomponentes.stream()
+		                   .filter(scI->scI instanceof Monitor)
+		                   .forEach(monI-> { monI.mostrarCaracteristicas(); 
+		                   		             System.out.println();});
+		System.out.println("==== Tarjeta(s) de Video ====");
+		this.subcomponentes.stream()
+		                   .filter(scI->scI instanceof Monitor)
+		                   .forEach(tarI-> { tarI.mostrarCaracteristicas(); 
+		                   		             System.out.println();});
 	}
 
 	@Override
