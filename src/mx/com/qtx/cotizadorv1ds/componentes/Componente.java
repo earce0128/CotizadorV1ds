@@ -99,7 +99,7 @@ abstract public class Componente {
     	return new Monitor(id,descripcion,marca,modelo,costo,precioBase);
     }
     
-    public static Componente crearPc(String id, String descripcion, String marca, String modelo, List<Componente> subcomponentes) {
+    public static Pc crearPc(String id, String descripcion, String marca, String modelo, List<Componente> subcomponentes) {
     	if(subcomponentes == null) throw new IllegalArgumentException("Pc no válida: \n Debe tener subcomponentes");
     	
     	List<String> lstCompNoValidos = PcBuilder.validarSubcomponentesPc(subcomponentes);

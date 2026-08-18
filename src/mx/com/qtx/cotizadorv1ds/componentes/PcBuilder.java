@@ -26,7 +26,7 @@ public class PcBuilder {
 	private int contMonitoresPc = 0;
 	private int contTarjetasPc = 0;
 	
-	public PcBuilder() {
+	PcBuilder() {
 		super();
 		this.subcomponentes = new ArrayList<>();
 	}
@@ -66,7 +66,7 @@ public class PcBuilder {
 				.toList();
 	}
 	
-	protected static List<String> validarSubcomponentesPc(List<Componente> subcomponentesPc) {
+	static List<String> validarSubcomponentesPc(List<Componente> subcomponentesPc) {
 
 		int cantCompNoPermitidos = obtenerCantComponentesNoPermitidos(subcomponentesPc);
 		List<Componente> lstCompNoPermitidos = obtenerComponentesNoPermitidos(subcomponentesPc);
@@ -81,43 +81,43 @@ public class PcBuilder {
 		return msgErrPcCompNoValidos;
 	}
 	
-	protected static int getMinMonitores() {
+	static int getMinMonitores() {
 		return MIN_MONITORES;
 	}
 	
-	protected static int getMaxMonitores() {
+	static int getMaxMonitores() {
 		return MAX_MONITORES;
 	}
 	
-	protected static int getMinTarjetas() {
+	static int getMinTarjetas() {
 		return MIN_TARJETAS;
 	}
 	
-	protected static int getMaxTarjetas() {
+	static int getMaxTarjetas() {
 		return MAX_TARJETAS;
 	}
 	
-	protected static int getMinDisco() {
+	static int getMinDisco() {
 		return MIN_DISCOS;
 	}
 	
-	protected static int getMaxDiscos() {
+	static int getMaxDiscos() {
 		return MAX_DISCOS;
 	}
 	
-	protected String getIdPc() {
+	String getIdPc() {
 		return this.idPc;
 	}
 	
-	protected String getDescripcionPc() {
+	String getDescripcionPc() {
 		return this.descripcionPc;
 	}
 	
-	protected String getMarcaPc() {
+	String getMarcaPc() {
 		return this.marcaPc;
 	}
 	
-	protected String getModeloPc() {
+	String getModeloPc() {
 		return this.modeloPc;
 	}
 	
@@ -169,12 +169,13 @@ public class PcBuilder {
 		return this;
 	}
 	
-	public Componente build() {
+	public Pc build() {
 		this.msgErrPcValidacion = new ArrayList<>();
 		if(esPcValida() == false) {
 			throw new IllegalStateException("Estructura Pc Invalida \n" + this.msgErrPcValidacion + this.toString());
 		}
-		return Componente.crearPc(this.idPc, this.descripcionPc, this.marcaPc, this.modeloPc, this.subcomponentes);
+		List<ComponenteSimple>lstSubcomponentesPc = this.subcomponentes.stream().map(compI -> (ComponenteSimple)compI).toList();
+		return new Pc(idPc,descripcionPc,marcaPc,modeloPc,lstSubcomponentesPc);
 	}
 	
 	@Override

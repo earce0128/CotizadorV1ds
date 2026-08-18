@@ -5,7 +5,7 @@ import java.util.List;
 
 import mx.com.qtx.cotizadorv1ds.componentes.Componente;
 
-public class Cotizador {
+public class Cotizador implements ICotizador{
 
 	private List<Integer> cantidades = new ArrayList<>();
     private List<Componente> componentes = new ArrayList<>();
@@ -20,11 +20,13 @@ public class Cotizador {
 	}
 	*/
     
+    @Override
     public void agregarComponente(int cantidad, Componente componente) {
         this.cantidades.add(cantidad);
         this.componentes.add(componente);
     }
 
+    @Override
     public void eliminarComponente(String idComponente) {
         int i = this.componentes.stream()
         						.map(compI -> compI.getId())
@@ -36,6 +38,7 @@ public class Cotizador {
         this.componentes.remove(i);
     }
 
+    @Override
     public Cotizacion generarCotizacion() {
         //System.out.println("=== Cotización ===");
         BigDecimal total = new BigDecimal(0);
@@ -58,6 +61,7 @@ public class Cotizador {
         return cotizacion;
     }
 
+    @Override
 	public void listarComponentes() {
     	System.out.println("=== Componentes a cotizar ===");
     	for (int i=0; i < this.cantidades.size(); i++) {

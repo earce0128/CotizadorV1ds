@@ -88,7 +88,31 @@ public class Pc extends Componente {
 	public List<ComponenteSimple> getSubcomponentes() {
 		return subcomponentes;
 	}
-
+	
+	public List<ComponenteSimple> getDiscosDuros(){
+		List<ComponenteSimple> lstDiscos = this.subcomponentes.stream()
+														.filter(compI -> compI instanceof DiscoDuro)
+														.toList();
+		if(lstDiscos.size() > 0) return lstDiscos;
+		return null;
+	}
+	
+	public List<ComponenteSimple> getMonitores(){
+		List<ComponenteSimple> lstMonitores = this.subcomponentes.stream()
+															.filter(compI -> compI instanceof Monitor)
+															.toList();
+		if(lstMonitores.size() > 0) return lstMonitores;
+		return null;
+	}
+	
+	public List<ComponenteSimple> getTarjetasVideo(){
+		List<ComponenteSimple> lstTarjetas = this.subcomponentes.stream()
+														.filter(compI -> compI instanceof Monitor)
+														.toList();
+		if(lstTarjetas.size() > 0) return lstTarjetas;
+		return null;
+	}
+	
 	@Override
 	public BigDecimal cotizar(int cantidad) {
 		return PromocionUtil.calcularPrecioPromocionDscto(cantidad, this.precioBase, DSCTO_PRECIO_AGREGADO);

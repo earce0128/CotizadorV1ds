@@ -364,6 +364,13 @@ public class CotizadorTest {
 			
 			miPc.mostrarCaracteristicas();
 			
+			
+			// Obteniendo subcomponentes por tipo
+			System.out.println("==== Subcomponentes usasndo getters de PC ====");
+			System.out.println("-- Monitores --");
+			
+			//System.out.println("\n " + miPc.ge );
+			
 			// Calculando Cotizador
 	    	int cantidad = 1;
 	    	System.out.println("\nCotizador PC para " + cantidad + " elementos es: $" + miPc.cotizar(cantidad).floatValue());
@@ -433,7 +440,8 @@ public class CotizadorTest {
 	private static void testAgregarComponentes() {
 		System.out.println("\n ***** testAgregarComponentes *****");
 		try {
-			Cotizador cotizador = new Cotizador();
+			// Crear instancia del Cotizador a través de la interfaz
+			ICotizador cotizador = getCotizadorActual();
 			Componente disco1 = Componente.crearDiscoDuro("D001",
 					   						"Disco Seagate",
 					   						"Tech XYZ",
@@ -466,7 +474,8 @@ public class CotizadorTest {
 	private static void testEliminarComponentes() {
 		System.out.println("\n ***** testEliminarComponentes *****");
 		try {
-			Cotizador cotizador = new Cotizador();
+			// Crear instancia del Cotizador a través de la interfaz
+			ICotizador cotizador = getCotizadorActual();
 			
 			// Crear algunos componentes
 			Componente disco1 = Componente.crearDiscoDuro("D001",
@@ -508,8 +517,8 @@ public class CotizadorTest {
 	public static void testEmitirCotizacion() {
 		System.out.println("\n ***** testEmitirCotizacion *****");
         try {
-			// Crear instancia del Cotizador
-			Cotizador cotizador = new Cotizador();
+			// Crear instancia del Cotizador a través de la interfaz
+			ICotizador cotizador = getCotizadorActual();
 			
 			// Crear algunos componentes
 			Componente disco = Componente.crearDiscoDuro("D001",
@@ -575,7 +584,7 @@ public class CotizadorTest {
 		System.out.println("\n ***** testEmitirCotizacionConPCBuilder *****");
         try {
 			// Crear instancia del Cotizador
-			Cotizador cotizador = new Cotizador();
+			ICotizador cotizador = getCotizadorActual();
 			
 			// Crear algunos componentes
 			Componente disco = Componente.crearDiscoDuro("D001",
@@ -643,5 +652,10 @@ public class CotizadorTest {
         } catch(Exception ex) {
 			System.err.println("Prueba incorrecta de testEmitirCotizacionConPCBuilder " + ex.getMessage());
         }
+	}
+	
+	public static ICotizador getCotizadorActual() {
+		return new CotizadorConMap();
+		//return new Cotizador();
 	}
 }
