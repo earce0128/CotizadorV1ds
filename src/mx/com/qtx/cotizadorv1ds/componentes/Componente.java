@@ -114,6 +114,10 @@ abstract public class Componente {
     	return new Pc(id,descripcion,marca,modelo,lstDispositivos);
     }
     
+    public static Pc crearPc(PcBuilder config) {
+    	return new Pc(config);
+    }
+    
     public List<String> getMsgErrValidacion(){
     	return this.msgErrValidacion; 
     }

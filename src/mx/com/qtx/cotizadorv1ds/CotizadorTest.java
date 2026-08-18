@@ -21,6 +21,7 @@ public class CotizadorTest {
         testCreacionPCConErroresEnSubcomponentes();
         testCreacionPCConErroresEnSubcomponentesNoPermitidos();
         testPCBuilder();
+        testPCBuilderPasandoConfig();
         testPCBuilderConErroresEnSubComponentes();
         testPCBuilderConErroresEnParametros();
         testAgregarComponentes();
@@ -364,12 +365,33 @@ public class CotizadorTest {
 			
 			miPc.mostrarCaracteristicas();
 			
+			// Calculando Cotizador
+	    	int cantidad = 1;
+	    	System.out.println("\nCotizador PC para " + cantidad + " elementos es: $" + miPc.cotizar(cantidad).floatValue());
+					
+		} catch(IllegalArgumentException iaex) {
+			System.err.println("Error en la creación de la PC: " + iaex.getMessage());
+		} catch(IllegalStateException isex) {
+			System.err.println("Error en la creación de la PC: " + isex.getMessage());
+		}
+	}
+	
+	private static void testPCBuilderPasandoConfig() {
+		System.out.println("\n ***** testPCBuilderPasandoConfig *****");
+		try {
+			Componente miPc = Componente.crearPc(
+					Componente.getPcBuilder()
+					.definirId("PC001")
+					.definirDescripcion("Laptop 1500 s300")
+					.definirMarcaYModelo("Dell","Terminator")
+					.agregarMonitor("M001","Monitor 17 pulgadas","Sony","Z9000",new BigDecimal("3200.00"),new BigDecimal("6000.00"))
+					.agregarDiscoDuro("D001","Disco Seagate","Tech XYZ","X200", new BigDecimal("1880.00"), new BigDecimal("2000.00"),"1TB")
+					.agregarTarjeta("TV001","Tarjeta XYZ","TechBrand","X200",BigDecimal.valueOf(150.00),BigDecimal.valueOf(200.00),"16GB")
+					.agregarDiscoDuro("D001","Disco Seagate","Tech XYZ","X200", new BigDecimal("1880.00"), new BigDecimal("2000.00"),"1TB")
+					.agregarMonitor("M001","Monitor 17 pulgadas","Sony","Z9000",new BigDecimal("3200.00"),new BigDecimal("6000.00"))
+					);
 			
-			// Obteniendo subcomponentes por tipo
-			System.out.println("==== Subcomponentes usasndo getters de PC ====");
-			System.out.println("-- Monitores --");
-			
-			//System.out.println("\n " + miPc.ge );
+			miPc.mostrarCaracteristicas();
 			
 			// Calculando Cotizador
 	    	int cantidad = 1;

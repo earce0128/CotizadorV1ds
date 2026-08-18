@@ -1,6 +1,7 @@
 package mx.com.qtx.cotizadorv1ds.componentes;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pc extends Componente {
@@ -17,6 +18,20 @@ public class Pc extends Componente {
 		this.setPrecioBase(this.calcularPrecioComponenteAgregado());
 		this.setCosto(this.calcularCostoComponenteAgregado());
 
+	}
+	
+	protected Pc(PcBuilder config) {
+		super(config.getIdPc(), config.getDescripcionPc(), 
+			  config.getMarcaPc(), config.getModeloPc(), new BigDecimal(0), new BigDecimal(0));
+		
+		List<ComponenteSimple> lstDispositivosPc = new ArrayList<>();
+		lstDispositivosPc.addAll(config.getComponentesPc());
+		
+		if(this.esUnaPcValida(lstDispositivosPc) == false)
+			throw new IllegalArgumentException("Pc no válida: \n" + this.msgErrValidacion);
+		this.subcomponentes = lstDispositivosPc;
+		this.setPrecioBase(this.calcularPrecioComponenteAgregado());
+		this.setCosto(this.calcularCostoComponenteAgregado());
 	}
 	
 	private boolean esUnaPcValida(List<ComponenteSimple> subcomponentes) {

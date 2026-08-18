@@ -105,6 +105,10 @@ public class PcBuilder {
 		return MAX_DISCOS;
 	}
 	
+	List<ComponenteSimple> getComponentesPc(){
+		return this.subcomponentes.stream().map(compI -> (ComponenteSimple)compI).toList(); 
+	}
+	
 	String getIdPc() {
 		return this.idPc;
 	}
