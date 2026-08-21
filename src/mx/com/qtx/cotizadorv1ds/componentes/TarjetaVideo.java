@@ -29,10 +29,12 @@ public class TarjetaVideo extends ComponenteSimple {
 		this.memoria = memoria;
 	}
 	
+	/*
 	@Override
 	public BigDecimal cotizar(int cantidad) {
 		return PromocionUtil.calcularPrecioPromocion3X2(cantidad, this.precioBase);
 	}
+	*/
 
 	@Override
 	public void mostrarCaracteristicas() {

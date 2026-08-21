@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Pc extends Componente {
 	
-	private static final float DSCTO_PRECIO_AGREGADO = 20.0f;
+	//private static final float DSCTO_PRECIO_AGREGADO = 20.0f;
 	
 	private List<ComponenteSimple> subcomponentes;
 	
@@ -59,13 +59,6 @@ public class Pc extends Componente {
 		int cantTarjetasVideo = obtenerCantComponentes(subcomponentes, "TarjetaVideo");
 		int cantMonitores = obtenerCantComponentes(subcomponentes, "Monitor");
 		int cantCompNoPermitidos = obtenerCantComponentesNoPermitidos(subcomponentes);
-		
-		/*
-		System.out.println("Discos encontrados: " + cantDiscos);
-		System.out.println("Tarjetas de Video encontradas: " + cantTarjetasVideo);
-		System.out.println("Monitores encontrados: " + cantMonitores);
-		System.out.println("Componentes no permitidos encontrados: " + cantCompNoPermitidos);
-		*/
 		
 		if(cantDiscos < PcBuilder.getMinDisco() || cantDiscos > PcBuilder.getMaxDiscos())
 			this.msgErrValidacion.add("Debe tener mínimo " + PcBuilder.getMinDisco() + " y máximo " + PcBuilder.getMaxDiscos() + " discos");
@@ -128,10 +121,12 @@ public class Pc extends Componente {
 		return null;
 	}
 	
+	/*
 	@Override
 	public BigDecimal cotizar(int cantidad) {
 		return PromocionUtil.calcularPrecioPromocionDscto(cantidad, this.precioBase, DSCTO_PRECIO_AGREGADO);
 	}
+	*/
 
 	@Override
 	public void mostrarCaracteristicas() {

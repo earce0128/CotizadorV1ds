@@ -3,6 +3,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.com.qtx.cotizadorv1ds.promos.Promocion;
+
 abstract public class Componente {
     
 	protected String id;
@@ -12,6 +14,8 @@ abstract public class Componente {
     protected BigDecimal costo;
     protected BigDecimal precioBase;
     protected List<String> msgErrValidacion;
+    
+    protected Promocion promo;
     
     public Componente(String id, String descripcion, String marca, String modelo, BigDecimal costo,	BigDecimal precioBase) {
 		super();
@@ -62,8 +66,19 @@ abstract public class Componente {
     public BigDecimal getCosto() { return costo; }
     public BigDecimal getPrecioBase() { return precioBase; }
     
-    public BigDecimal cotizar(int cantidad) {
-    	return this.calcularPrecioDefault(cantidad, this);
+    public Promocion getPromo() {
+		return promo;
+	}
+
+	public void setPromo(Promocion promo) {
+		this.promo = promo;
+	}
+
+	public BigDecimal cotizar(int cantidad) {
+    	if(this.promo == null)
+    		return this.calcularPrecioDefault(cantidad, this);
+    	else
+    		return this.promo.calcularImportePromocion(cantidad, this.precioBase);
     }
     
     public void mostrarCaracteristicas() {

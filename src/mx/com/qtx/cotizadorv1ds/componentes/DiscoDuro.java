@@ -7,7 +7,6 @@ public class DiscoDuro extends ComponenteSimple {
 	private String capacidadAlm;
 	
 	private boolean esDiscoDuroValido(String capacidadAlm) {
-		//this.validarComponenteSimple(id, descripcion, marca, modelo, costo, precioBase);
 		if(capacidadAlm == null || capacidadAlm.trim().equals(""))
 			this.msgErrValidacion.add("La capacidad de Almacenamiento es obligatoria");
 		if(this.msgErrValidacion.size() > 0) return false;
