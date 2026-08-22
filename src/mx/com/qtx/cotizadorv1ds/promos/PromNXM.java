@@ -20,6 +20,7 @@ public class PromNXM extends PromBase {
 			throw new IllegalArgumentException("Promoción NxM no válida: \n " + this.msgErrValidacion);
 		this.lleveN = n;
 		this.pagueM = m;
+		this.cveProm = n + "x" + m;
 	}
 	
 	public int getLleveN() {

@@ -6,6 +6,7 @@ public class PromSinDescto extends PromBase {
 
 	public PromSinDescto() {
 		super("No se aplica ningun descuento", "Precio regular");
+		this.cveProm = "Acum";
 	}
 
 	@Override

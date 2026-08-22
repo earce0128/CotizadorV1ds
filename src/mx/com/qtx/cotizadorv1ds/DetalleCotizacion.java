@@ -3,13 +3,13 @@ package mx.com.qtx.cotizadorv1ds;
 import java.math.BigDecimal;
 
 public class DetalleCotizacion {
-	private int numDetalle;
-	private String idComponente;
-	private String descripcion;
-	private int cantidad;
-	private BigDecimal precioBase;
-	private BigDecimal importeCotizado;
-	private String categoria;
+	protected int numDetalle;
+	protected String idComponente;
+	protected String descripcion;
+	protected int cantidad;
+	protected BigDecimal precioBase;
+	protected BigDecimal importeCotizado;
+	protected String categoria;
 	
 	public DetalleCotizacion(int numDetalle, String idComponente, String descripcion, int cantidad,
 			BigDecimal precioBase, BigDecimal importeCotizado, String categoria) {

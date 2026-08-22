@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import mx.com.qtx.cotizadorv1ds.Cotizacion;
-import mx.com.qtx.cotizadorv1ds.CotizadorConMap;
+//import mx.com.qtx.cotizadorv1ds.Cotizador;
+//import mx.com.qtx.cotizadorv1ds.CotizadorConMap;
+import mx.com.qtx.cotizadorv1ds.CotizadorConMapProm;
 import mx.com.qtx.cotizadorv1ds.ICotizador;
 import mx.com.qtx.cotizadorv1ds.componentes.Componente;
 
@@ -67,7 +69,8 @@ public class PromocionTest {
 		int cantidad = 2;
 		BigDecimal precioBase= new BigDecimal("500.00");
 		double importeCalculado = promoSinDscto.calcularImportePromocion(cantidad, precioBase).doubleValue();
-		System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+		System.out.println("\n CveProm: " + promoSinDscto.getCveProm() + "\n cantidad: " + cantidad + "\n Precio Base: " + precioBase 
+				+ "\n Importe calculado: " + importeCalculado);
 	}
 	
 	private static void testPromoSinDsctoConErrorEnCantYPrecio() {
@@ -80,7 +83,8 @@ public class PromocionTest {
 			int cantidad = -2;
 			BigDecimal precioBase= new BigDecimal("-500.00");
 			double importeCalculado = promoSinDscto.calcularImportePromocion(cantidad, precioBase).doubleValue();
-			System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			System.out.println("\n CveProm: " + promoSinDscto.getCveProm() + "\n cantidad: " + cantidad + "\n Precio Base: " + precioBase 
+					+ "\n Importe calculado: " + importeCalculado);
 		} catch(IllegalArgumentException iaex) {
 			System.err.println("Error correcto en testPromoSinDsctoConErrorEnCantYPrecio " + iaex.getMessage());
 		}
@@ -95,7 +99,9 @@ public class PromocionTest {
 		int cantidad = 6;
 		BigDecimal precioBase= new BigDecimal("1000.00");
 		double importeCalculado = promo3x2.calcularImportePromocion(cantidad, precioBase).doubleValue();
-		System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+		//System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+		System.out.println("\n CveProm: " + promo3x2.getCveProm() + "\n cantidad: " + cantidad + "\n Precio Base: " + precioBase 
+				+ "\n Importe calculado: " + importeCalculado);
 		
 		System.out.println("\n ***** testPromNXM 2x1 + 5 + 10 *****");
 		Promocion prom2x1_5_10 =  getPromo_2x1_mas_5_mas_10();
@@ -105,7 +111,8 @@ public class PromocionTest {
 		cantidad = 8;
 		precioBase= new BigDecimal("1000.00");
 		importeCalculado = prom2x1_5_10.calcularImportePromocion(cantidad, precioBase).doubleValue();
-		System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+		System.out.println("\n CveProm: " + prom2x1_5_10.getCveProm() + "\n cantidad: " + cantidad + "\n Precio Base: " + precioBase 
+				+ "\n Importe calculado: " + importeCalculado);
 	}
 
 	private static void testPromNXMConErrores() {
@@ -133,7 +140,9 @@ public class PromocionTest {
 			int cantidad = 2;
 			BigDecimal precioBase= new BigDecimal("500.00");
 			double importeCalculado = promDescAcum5.calcularImportePromocion(cantidad, precioBase).doubleValue();
-			System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			System.out.println("\n CveProm: " + promDescAcum5.getCveProm() + "\n cantidad: " + cantidad + "\n Precio Base: " + precioBase 
+					+ "\n Importe calculado: " + importeCalculado);
+			//System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
 			
 		} catch(IllegalArgumentException iaex) {
 			System.err.println("Error en testPromBaseSinDsctoYDsctPlano " + iaex.getMessage());
@@ -152,7 +161,9 @@ public class PromocionTest {
 			int cantidad = 2;
 			BigDecimal precioBase= new BigDecimal("500.00");
 			double importeCalculado = promDescAcum25.calcularImportePromocion(cantidad, precioBase).doubleValue();
-			System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			//System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			System.out.println("\n CveProm: " + promDescAcum25.getCveProm() + "\n cantidad: " + cantidad + "\n Precio Base: " + precioBase 
+					+ "\n Importe calculado: " + importeCalculado);
 			
 		} catch(IllegalArgumentException iaex) {
 			System.err.println("Error correcto en testPromBaseSinDsctoYDsctPlanoConError " + iaex.getMessage());
@@ -171,7 +182,9 @@ public class PromocionTest {
 			int cantidad = 4;
 			BigDecimal precioBase= new BigDecimal("1000.00");
 			double importeCalculado = promDescAcum5.calcularImportePromocion(cantidad, precioBase).doubleValue();
-			System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			//System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			System.out.println("\n CveProm: " + promDescAcum5.getCveProm() + "\n cantidad: " + cantidad + "\n Precio Base: " + precioBase 
+					+ "\n Importe calculado: " + importeCalculado);
 			
 		} catch(IllegalArgumentException iaex) {
 			System.err.println("Error en testPromMXMYDsctPlano " + iaex.getMessage());
@@ -190,7 +203,9 @@ public class PromocionTest {
 			int cantidad = 4;
 			BigDecimal precioBase= new BigDecimal("1000.00");
 			double importeCalculado = promDescAcum25.calcularImportePromocion(cantidad, precioBase).doubleValue();
-			System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			//System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			System.out.println("\n CveProm: " + promDescAcum25.getCveProm() + "\n cantidad: " + cantidad + "\n Precio Base: " + precioBase 
+					+ "\n Importe calculado: " + importeCalculado);
 			
 		} catch(IllegalArgumentException iaex) {
 			System.err.println("Error correcto en testPromMXMYDsctPlanoConError " + iaex.getMessage());
@@ -209,7 +224,9 @@ public class PromocionTest {
 			int cantidad = 5;
 			BigDecimal precioBase= new BigDecimal("1000.00");
 			double importeCalculado = promDescXCant.calcularImportePromocion(cantidad, precioBase).doubleValue();
-			System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			//System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			System.out.println("\n CveProm: " + promDescXCant.getCveProm() + "\n cantidad: " + cantidad + "\n Precio Base: " + precioBase 
+					+ "\n Importe calculado: " + importeCalculado);
 			
 		} catch(IllegalArgumentException iaex) {
 			System.err.println("Error en testPromBaseSinDsctoYDsctoXCant " + iaex.getMessage());
@@ -228,7 +245,9 @@ public class PromocionTest {
 			int cantidad = 5;
 			BigDecimal precioBase= new BigDecimal("500.00");
 			double importeCalculado = promDescXCant.calcularImportePromocion(cantidad, precioBase).doubleValue();
-			System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			//System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			System.out.println("\n CveProm: " + promDescXCant.getCveProm() + "\n cantidad: " + cantidad + "\n Precio Base: " + precioBase 
+					+ "\n Importe calculado: " + importeCalculado);
 			
 		} catch(IllegalArgumentException iaex) {
 			System.err.println("Error correcto en testPromBaseSinDsctoYDsctoXCantConError " + iaex.getMessage());
@@ -247,7 +266,9 @@ public class PromocionTest {
 			int cantidad = 4;
 			BigDecimal precioBase= new BigDecimal("1000.00");
 			double importeCalculado = prom3x2_DescXCant.calcularImportePromocion(cantidad, precioBase).doubleValue();
-			System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			//System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			System.out.println("\n CveProm: " + prom3x2_DescXCant.getCveProm() + "\n cantidad: " + cantidad + "\n Precio Base: " + precioBase 
+					+ "\n Importe calculado: " + importeCalculado);
 			
 		} catch(IllegalArgumentException iaex) {
 			System.err.println("Error en testPromMXMYDsctXCant " + iaex.getMessage());
@@ -266,7 +287,9 @@ public class PromocionTest {
 			int cantidad = 4;
 			BigDecimal precioBase= new BigDecimal("1000.00");
 			double importeCalculado = prom3x2_DsctoXCant.calcularImportePromocion(cantidad, precioBase).doubleValue();
-			System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			//System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			System.out.println("\n CveProm: " + prom3x2_DsctoXCant.getCveProm() + "\n cantidad: " + cantidad + "\n Precio Base: " + precioBase 
+					+ "\n Importe calculado: " + importeCalculado);
 			
 		} catch(IllegalArgumentException iaex) {
 			System.err.println("Error correcto en testPromMXMYDsctXCantConError " + iaex.getMessage());
@@ -290,8 +313,9 @@ public class PromocionTest {
 			int cantidad = 7;
 			BigDecimal precioBase= new BigDecimal("1000.00");
 			double importeCalculado = promo.calcularImportePromocion(cantidad, precioBase).doubleValue();
-			System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
-			
+			//System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			System.out.println("\n CveProm: " + promo.getCveProm() + "\n cantidad: " + cantidad + "\n Precio Base: " + precioBase 
+					+ "\n Importe calculado: " + importeCalculado);
 			
 		} catch(IllegalArgumentException iaex) {
 			System.err.println("Error en testPromBuilder " + iaex.getMessage());
@@ -315,7 +339,9 @@ public class PromocionTest {
 			int cantidad = 7;
 			BigDecimal precioBase= new BigDecimal("1000.00");
 			double importeCalculado = promo.calcularImportePromocion(cantidad, precioBase).doubleValue();
-			System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			//System.out.println("\n Cant: " + cantidad + "\n Precio Base: " + precioBase + "\n Importe calculado: " + importeCalculado);
+			System.out.println("\n CveProm: " + promo.getCveProm() + "\n cantidad: " + cantidad + "\n Precio Base: " + precioBase 
+					+ "\n Importe calculado: " + importeCalculado);
 			
 		} catch(IllegalArgumentException iaex) {
 			System.err.println("Error correcto en testPromBuilderConError " + iaex.getMessage());
@@ -383,20 +409,28 @@ public class PromocionTest {
 
 			// Definiendo promociones
 			Promocion prom2x1 = Promocion.getBuilder()
+					.conPromocionBaseNXM(2, 1)
+					.build();
+			System.out.println("\n CveProm: " + prom2x1.getCveProm());
+			Promocion.mostrarEstructuraPromocion(prom2x1);
+			
+			Promocion prom3x2 = Promocion.getBuilder()
 					.conPromocionBaseNXM(3, 2)
 					.build();
-			Promocion.mostrarEstructuraPromocion(prom2x1);
+			System.out.println("\n CveProm: " + prom3x2.getCveProm());
 			
 			Promocion promDescPlano20 = Promocion.getBuilder()
 					.conPromocionBaseSinDscto()
 					.agregarDsctoPlano(20.0f)
 					.build();
+			System.out.println("\n CveProm: " + promDescPlano20.getCveProm());
 			Promocion.mostrarEstructuraPromocion(promDescPlano20);
 			
 			Promocion promDescXCant = Promocion.getBuilder()
 					.conPromocionBaseSinDscto()
 					.agregarDsctoXCantidad(mapDsctos)
 					.build();
+			System.out.println("\n CveProm: " + promDescXCant.getCveProm());
 			Promocion.mostrarEstructuraPromocion(promDescXCant);
 			
 			Promocion prom4x3_mas_15_mas_5 = Promocion.getBuilder()
@@ -404,32 +438,37 @@ public class PromocionTest {
 					.agregarDsctoPlano(15.0f)
 					.agregarDsctoPlano(5.0f)
 					.build();
+			System.out.println("\n CveProm: " + prom4x3_mas_15_mas_5.getCveProm());
 			Promocion.mostrarEstructuraPromocion(prom4x3_mas_15_mas_5);
 			
 			// Asignado promociones a componentes
-			tarjeta.setPromo(prom2x1);
+			tarjeta.setPromo(prom3x2);
 			miPc.setPromo(promDescPlano20);
 			monitor.setPromo(promDescXCant);
 			disco.setPromo(prom4x3_mas_15_mas_5);
+			miPc2.setPromo(prom2x1);
+			discoPc.setPromo(promDescPlano20);
 			
-			System.out.println("=== Agregar componentes ===");
+			// Agregando componentes
 			cotizador.agregarComponente(10, disco);
 			cotizador.agregarComponente(5, tarjeta);
 			cotizador.agregarComponente(10, monitor);
 			cotizador.agregarComponente(1, miPc);
 			cotizador.agregarComponente(2, miPc2);
+			cotizador.agregarComponente(1, discoPc);
 			
 			// Prueba: Generar cotización
 			Cotizacion cot = cotizador.generarCotizacion(); // Mostrar cotización actual
 			cot.emitirComoReporte();
         } catch(Exception ex) {
-			System.err.println("Prueba incorrecta de testEmitirCotizacionConPCBuilder " + ex.getMessage());
+			System.err.println("Prueba incorrecta de testEmitirCotizacionConPromociones " + ex.getMessage());
         }
 	}
 	
 	public static ICotizador getCotizadorActual() {
-		return new CotizadorConMap();
 		//return new Cotizador();
+		//return new CotizadorConMap();
+		return new CotizadorConMapProm();
 	}
 
 }

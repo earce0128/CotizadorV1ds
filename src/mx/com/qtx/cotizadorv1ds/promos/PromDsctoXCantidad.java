@@ -37,6 +37,7 @@ public class PromDsctoXCantidad extends PromAcumulable {
 		if(esPromDsctoXCantidadValida(promoBase, mapCantidadVsDscto) == false)
 			throw new IllegalArgumentException("Promoción Acum DsctoXCantidad no válida: \n " + this.msgErrValidacion);
 		this.mapCantidadVsDscto = mapCantidadVsDscto;
+		this.cveProm = promoBase.cveProm + " +DsctoXCant";
 	}
 
 	@Override

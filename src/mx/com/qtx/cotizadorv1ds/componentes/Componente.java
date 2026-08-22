@@ -74,7 +74,7 @@ abstract public class Componente {
 		this.promo = promo;
 	}
 
-	public BigDecimal cotizar(int cantidad) {
+	final public BigDecimal cotizar(int cantidad) {
     	if(this.promo == null)
     		return this.calcularPrecioDefault(cantidad, this);
     	else

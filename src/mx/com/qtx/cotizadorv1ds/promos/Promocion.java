@@ -9,6 +9,7 @@ public abstract class Promocion {
 	
 	private String descripcion;
 	private String nombre;
+	protected String cveProm;
 	protected List<String> msgErrValidacion;
 	
 	private boolean esPromocionValida(String descripcion, String nombre) {
@@ -22,12 +23,12 @@ public abstract class Promocion {
 	
 	private static void mostrarElemEstructuraPromocion(Promocion prom) {
 		if(prom instanceof PromBase) {
-			System.out.println(prom.getClass().getSimpleName() + ": " + prom.getDescripcion());
+			System.out.println(prom.getClass().getSimpleName() + ": " + prom.getDescripcion() + " cveProm: " + prom.getCveProm());
 		}
 		else 
 		if(prom instanceof PromAcumulable promAcum) {
 			mostrarElemEstructuraPromocion(promAcum.promoBase);
-			System.out.println(prom.getClass().getSimpleName() + ": " + prom.getDescripcion());
+			System.out.println(prom.getClass().getSimpleName() + ": " + prom.getDescripcion() + " cveProm: " + prom.getCveProm());
 		}
 	}
 	
@@ -61,6 +62,14 @@ public abstract class Promocion {
 		this.nombre = nombre;
 	}
 	
+	public String getCveProm() {
+		return cveProm;
+	}
+
+	public void setCveProm(String cveProm) {
+		this.cveProm = cveProm;
+	}
+
 	public static Promocion crearPromocion(PromocionBuilder builder){
 		
 		Promocion promoBase = null;

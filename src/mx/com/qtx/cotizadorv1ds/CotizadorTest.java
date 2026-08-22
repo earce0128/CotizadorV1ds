@@ -677,7 +677,7 @@ public class CotizadorTest {
 	}
 	
 	public static ICotizador getCotizadorActual() {
-		return new CotizadorConMap();
-		//return new Cotizador();
+		//return new CotizadorConMap();
+		return new Cotizador();
 	}
 }

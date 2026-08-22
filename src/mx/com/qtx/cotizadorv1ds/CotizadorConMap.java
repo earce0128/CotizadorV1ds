@@ -7,7 +7,7 @@ import mx.com.qtx.cotizadorv1ds.componentes.Componente;
 
 public class CotizadorConMap implements ICotizador{
   
-    private Map<Componente, Integer> componentes;
+    protected Map<Componente, Integer> componentes;
 
     public CotizadorConMap() {
 		super();
@@ -18,7 +18,7 @@ public class CotizadorConMap implements ICotizador{
     public void agregarComponente(int cant, Componente compK) {
     	
     	// Componente a agregar
-    	System.out.println("Componente a agregar: " + compK);
+    	//System.out.println("Componente a agregar: " + compK);
     	
     	// Busca si ya existe un componente con el mismo id, y en caso de encontrarlo, suma la cantidad, si no lo agrega
     	Componente compEncontrado = this.componentes.keySet()
@@ -50,18 +50,18 @@ public class CotizadorConMap implements ICotizador{
         BigDecimal total = new BigDecimal(0);
         
         // Se invoca a la cotización
-        Cotizacion cotizacion = new Cotizacion();
+        CotizacionFmtoB cotizacion = new CotizacionFmtoB();
         
         int i=0;
         for(Componente compI : this.componentes.keySet()) {
         	int cantidadI = this.componentes.get(compI);
         	BigDecimal importeCotizadoI = new BigDecimal(0);
-        	i++;
-			
+        	
 			importeCotizadoI = compI.cotizar(cantidadI);
 			
 			cotizacion.agregarDetalle((i+1), compI.getId(), compI.getDescripcion(), cantidadI, compI.getPrecioBase(), importeCotizadoI, compI.getCategoria());
 			total = total.add(importeCotizadoI);
+			i++;
         }
         
         cotizacion.setTotal(total);

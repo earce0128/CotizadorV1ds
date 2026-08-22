@@ -8,11 +8,11 @@ import java.util.TreeMap;
 public class Cotizacion {
 	private static long nCotizaciones = 0;
 	
-	private long num;
-	private LocalDate fecha;
-	private BigDecimal total;
+	protected long num;
+	protected LocalDate fecha;
+	protected BigDecimal total;
 	
-	private Map<Integer,DetalleCotizacion> detalles;
+	protected Map<Integer,DetalleCotizacion> detalles;
 	
 	public Cotizacion() {
 		super();
@@ -61,7 +61,7 @@ public class Cotizacion {
 		System.out.printf("\n%102s","Total:$" + String.format("%8.2f",this.getTotal()));
 	}
 	
-	private void desplegarLineaCotizacion(DetalleCotizacion detI) {
+	protected void desplegarLineaCotizacion(DetalleCotizacion detI) {
 		System.out.println(String.format("%3d",detI.getCantidad()) + " " 
 							+ String.format("Categoría:%-20s", detI.getCategoria())
 							+ String.format("%-20s", detI.getDescripcion())

@@ -21,6 +21,7 @@ public class PromDsctoPlano extends PromAcumulable {
 		if(esPromDsctoPlanoValida(promoBase, porcDescto) == false)
 			throw new IllegalArgumentException("Promoción Acum DsctoPlano no válida: \n " + this.msgErrValidacion);
 		this.porcDescto = porcDescto;
+		this.cveProm = promoBase.cveProm + String.format(" +%2.1f%%", porcDescto);
 	}
 
 	@Override
